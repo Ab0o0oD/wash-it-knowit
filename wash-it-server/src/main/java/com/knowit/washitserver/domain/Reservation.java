@@ -1,23 +1,33 @@
 package com.knowit.washitserver.domain;
 
 import com.sun.istack.NotNull;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 
 @Entity
 @Table
+@NoArgsConstructor
 public class Reservation {
-    @ManyToOne
-    private User user;
-
+    public Reservation(int userId, int machineId, int programId) {
+        this.userId = userId;
+        this.programId = programId;
+        this.machineId = machineId;
+    }
 
     @Id
     @NotNull
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "reservation_generator")
+    @SequenceGenerator(name = "reservation_generator", sequenceName = "reservation_seq")
+    public int id;
 
     @Column
-    LocalDate startTime;
+    public int userId;
+
+    @Column
+    public int machineId;
+
+    @Column
+    public int programId;
 
 }

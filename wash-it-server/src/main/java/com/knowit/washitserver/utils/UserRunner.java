@@ -14,9 +14,9 @@ public class UserRunner implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        userRepository.save( new User( "Abdulrazak", "Kanjo" ) );
-        userRepository.save( new User( "Olaf", "Anders" ) );
-        userRepository.save( new User( "Synne", "Darko" ) );
+        userRepository.save( new User( "Abdulrazak", "Kanjo", "91999980" ) );
+        userRepository.save( new User( "Olaf", "Anders", "123456789" ) );
+        userRepository.save( new User( "Synne", "Darko", "123456789" ) );
     }
 
 

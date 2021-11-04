@@ -18,16 +18,16 @@ public class WashingProgram {
     @Id
     @NotNull
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "program_generator")
-    @SequenceGenerator(name="program_generator", sequenceName = "program_seq")
-    private int id;
+    @SequenceGenerator(name = "program_generator", sequenceName = "program_seq")
+    public int id;
 
     @Column
-    private String type;
+    public String type;
 
     @Column
-    private int temperature;
+    public int temperature;
 
     @Column
-    private int duration;
+    public int duration;
 
 }

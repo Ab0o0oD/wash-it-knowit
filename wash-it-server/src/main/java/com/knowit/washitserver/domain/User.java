@@ -4,30 +4,33 @@ import com.sun.istack.NotNull;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table
 @NoArgsConstructor
 
 public class User {
-    public User(String firstName, String lastName) {
+    public User(String firstName, String lastName, String mobileNumber) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.mobileNumber = mobileNumber;
     }
 
     @Id
     @NotNull
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_generator")
-    @SequenceGenerator(name="user_generator", sequenceName = "user_seq")
-    private int id;
+    @SequenceGenerator(name = "user_generator", sequenceName = "user_seq")
+    public int id;
 
     @Column
-    private String firstName;
+    public String firstName;
 
     @Column
-    private String lastName;
+    public String lastName;
 
-    @OneToMany(mappedBy = "user")
-    private List<Reservation> reservationList;
+    @Column(name = "Tel")
+    public String mobileNumber;
+
+//    @OneToMany(mappedBy = "user")
+//    public List<Reservation> reservationList;
 }
