@@ -1,0 +1,28 @@
+.card-wrapper {
+    display: flex;
+    flex-flow: column;
+    padding: 20px;
+    min-width: 320px;
+    font-weight: bold;
+    font-size: 20px;
+    border: 1px black solid;
+    margin: 25px;
+}
+
+.header {
+    border: 1px black solid;
+    margin-bottom: 13px;
+}
+
+.machine-details {
+    padding: 10px;
+    text-align: left;
+}
+
+.available-style {
+    background: #a8e5a8;
+}
+
+.not-available-style {
+    background: #dcadad;
+}
