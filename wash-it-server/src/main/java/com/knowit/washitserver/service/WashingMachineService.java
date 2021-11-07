@@ -24,7 +24,7 @@ public class WashingMachineService {
     public void updateWashingMachineStatusById(int id) {
         WashingMachine washingMachine = washingMachineRepository.findById( id ).orElseThrow();
         washingMachine.setAvailable( false );
-        washingMachineRepository.save(washingMachine );
+        washingMachineRepository.save( washingMachine );
     }
 
     public List<WashingMachine> getAllWashingMachines() {
@@ -34,7 +34,7 @@ public class WashingMachineService {
     }
 
     public WashingMachine getWashingMachineById(int id) {
-        logger.info( "getting machine number: " + id );
+        logger.info( "Fetching  machine number: {}", id );
         return washingMachineRepository.findById( id ).orElse( null );
     }
 }

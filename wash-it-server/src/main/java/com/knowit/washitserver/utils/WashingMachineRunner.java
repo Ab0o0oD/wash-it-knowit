@@ -23,21 +23,15 @@ public class WashingMachineRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        LocalDate from =  LocalDate.of(2022,1, 1);
-        LocalDate to =  LocalDate.of(2022,1, 2);
-        WashingMachine wm1 =  new WashingMachine(true, from,to );
-        WashingMachine wm2 =  new WashingMachine(true, from,to );
-        WashingMachine wm3 =  new WashingMachine(true, from,to );
-        WashingMachine wm4 =  new WashingMachine(true, from,to );
-       washingMachineRepository.save(wm1);
-       washingMachineRepository.save(wm2);
-       washingMachineRepository.save(wm3);
-       washingMachineRepository.save(wm4);
+        LocalDate from = LocalDate.of( 2022, 1, 1 );
+        LocalDate to = LocalDate.of( 2022, 1, 2 );
 
+        for (int i = 0; i < 12; i++) {
+            washingMachineRepository.save( new WashingMachine( true, from, to ) );
+        }
 
 
     }
-
 
 
 }
