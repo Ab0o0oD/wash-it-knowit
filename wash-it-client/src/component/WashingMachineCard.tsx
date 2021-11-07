@@ -1,16 +1,21 @@
 import React from "react";
-import './washing-machine-card.css';
+import './Washing-machine-card.css';
 import headerImage from '../assets/washing-machine.png'
 import {Button, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent} from "@mui/material";
-import {WashingMachine, WashingMachineProgram} from "../business-types";
+import {User, WashingMachine, WashingMachineProgram} from "../business-types";
 import axios from "axios";
 
 interface WashingMachineCardProps {
     washingProgram: WashingMachineProgram[],
-    washingMachine: WashingMachine
+    washingMachine: WashingMachine,
+    user: User
 }
 
-export const WashingMachineCard: React.FC<WashingMachineCardProps> = ({washingProgram, washingMachine}) => {
+export const WashingMachineCard: React.FC<WashingMachineCardProps> = ({
+                                                                          washingProgram,
+                                                                          washingMachine,
+                                                                          user
+                                                                      }) => {
     const [program, setProgram] = React.useState<string>('');
     const [selectedProgram, setSelectedProgram] = React.useState<number>(0);
     const handleChange = (event: SelectChangeEvent) => {
@@ -18,10 +23,10 @@ export const WashingMachineCard: React.FC<WashingMachineCardProps> = ({washingPr
         setSelectedProgram(parseInt(event.target.value))
     };
     const onBookClick = (machineId: number, programId: number) => {
-        if (selectedProgram == 0) {
+        if (selectedProgram === 0) {
             alert('You have to set washing program')
         } else {
-            axios.post(`http://localhost:8080/reservation/2/${machineId}/${programId}`).then(
+            axios.post(`http://localhost:8080/reservation/${user.id}/${machineId}/${programId}`).then(
                 response => {
                     window.location.reload()
                 }
@@ -30,7 +35,7 @@ export const WashingMachineCard: React.FC<WashingMachineCardProps> = ({washingPr
     }
     const onCancelClick = (machineId: number) => {
         axios.post(`http://localhost:8080/machine/update/${machineId}/`).then(
-            response => {
+            () => {
                 window.location.reload()
             }
         )
@@ -39,16 +44,18 @@ export const WashingMachineCard: React.FC<WashingMachineCardProps> = ({washingPr
     return (
         <div className='card-wrapper'>
             <div className={isAvailableWashingMachine ? 'available-style header' : 'not-available-style header'}>
-                <img src={headerImage}/>
+                <img src={headerImage} alt="machine"/>
             </div>
 
             <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">Program</InputLabel>
+                <InputLabel
+                    id="demo-simple-select-label">{washingMachine.available ? "Program" : 'Reserved'}</InputLabel>
                 <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
                     value={program}
                     label="Washing"
+                    disabled={!washingMachine.available}
                     onChange={handleChange}
                 >
                     {washingProgram.map((program, index) =>

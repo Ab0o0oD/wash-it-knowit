@@ -19,6 +19,11 @@ public class ReservationController {
         return reservationService.getAllReservations();
     }
 
+    @GetMapping("/{userId}")
+    private List<Reservation> getAllReservationsForUser(@PathVariable int userId) {
+        return reservationService.fineAllreservationsForOneUser( userId );
+    }
+
     @PostMapping("/{userId}/{machineId}/{programId}")
     private void saveReservation(@PathVariable int userId, @PathVariable int machineId, @PathVariable int programId) {
         reservationService.saveReservation( userId, machineId, programId );

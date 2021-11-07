@@ -1,19 +1,21 @@
 import React, {useEffect, useState} from "react";
-import {WashingMachine, WashingMachineProgram} from "../business-types";
+import {User, WashingMachine, WashingMachineProgram} from "../business-types";
 import {fetchWashingMachines, fetchWashingPrograms} from "../api/api";
-import {Alert, CircularProgress} from "@mui/material";
+import {Alert, Button, CircularProgress} from "@mui/material";
 import {WashingMachineCard} from "../component/WashingMachineCard";
+import "./booking.css"
+import {useNavigate} from "react-router";
 
-interface HomeProps {
-
+interface BookingProps {
 }
 
-export const Home: React.FC<HomeProps> = ({}) => {
+export const Booking: React.FC<BookingProps> = ({}) => {
     const [washingMachineList, setWashingMachineList] = useState<WashingMachine[]>([])
     const [washingMachineProgramList, setWashingMachineProgramList] = useState<WashingMachineProgram[]>([])
     const [errorMessage, setErrorMessage] = useState<String>()
     const [isLoading, setIsLoading] = useState<boolean>(false)
-
+    const navigate = useNavigate()
+    const user: User = JSON.parse(localStorage.getItem("user")!!)
     useEffect(() => {
         setIsLoading(true)
         fetchWashingMachines.then(response => {
@@ -36,16 +38,25 @@ export const Home: React.FC<HomeProps> = ({}) => {
     if (isLoading) {
         return <CircularProgress style={{position: "fixed", left: "49%", top: "40%"}} size={80}/>
     }
+
+
     return (
         <div>
-            {errorMessage ?
-                <Alert severity="error">{errorMessage}</Alert> : ''}
-            <div className="container">
+            <div className="home-header">
+                <h1>{`Logged in as: ${user.firstName}, ${user.lastName}`}</h1>
+                {errorMessage ?
+                    <Alert severity="error">{errorMessage}</Alert> : ''}
+            </div>
+            <Button size="large" variant="contained" onClick={() => {
+                navigate('/welcome')
+            }}>Back to main</Button>
+            <div className="cards-container">
                 {washingMachineList.map((washingMachine, index) =>
                     <WashingMachineCard
                         key={index}
                         washingProgram={washingMachineProgramList}
                         washingMachine={washingMachine}
+                        user={user}
                     />
                 )}
             </div>

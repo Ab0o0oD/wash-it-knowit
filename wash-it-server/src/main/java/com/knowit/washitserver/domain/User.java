@@ -31,6 +31,4 @@ public class User {
     @Column(name = "Tel")
     public String mobileNumber;
 
-//    @OneToMany(mappedBy = "user")
-//    public List<Reservation> reservationList;
 }
