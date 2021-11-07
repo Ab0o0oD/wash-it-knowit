@@ -10,6 +10,11 @@ export type WashingMachineProgram = {
     type: String,
     temperature: number,
     duration: number,
+}
 
-
+export type User = {
+    id: number
+    firstName: string
+    lastName: string
+    mobileNumber: string
 }

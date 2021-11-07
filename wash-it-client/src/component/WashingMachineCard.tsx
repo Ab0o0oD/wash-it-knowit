@@ -1,8 +1,9 @@
 import React from "react";
-import './Washing-machine-card.css';
+import './washing-machine-card.css';
 import headerImage from '../assets/washing-machine.png'
 import {Button, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent} from "@mui/material";
 import {WashingMachine, WashingMachineProgram} from "../business-types";
+import axios from "axios";
 
 interface WashingMachineCardProps {
     washingProgram: WashingMachineProgram[],
@@ -10,20 +11,39 @@ interface WashingMachineCardProps {
 }
 
 export const WashingMachineCard: React.FC<WashingMachineCardProps> = ({washingProgram, washingMachine}) => {
-    const [program, setProgram] = React.useState('');
-    const handleChange = (event: SelectChangeEvent<string>) => {
+    const [program, setProgram] = React.useState<string>('');
+    const [selectedProgram, setSelectedProgram] = React.useState<number>(0);
+    const handleChange = (event: SelectChangeEvent) => {
         setProgram(event.target.value);
+        setSelectedProgram(parseInt(event.target.value))
     };
-
-    const isAvailable = washingMachine.available
+    const onBookClick = (machineId: number, programId: number) => {
+        if (selectedProgram == 0) {
+            alert('You have to set washing program')
+        } else {
+            axios.post(`http://localhost:8080/reservation/2/${machineId}/${programId}`).then(
+                response => {
+                    window.location.reload()
+                }
+            )
+        }
+    }
+    const onCancelClick = (machineId: number) => {
+        axios.post(`http://localhost:8080/machine/update/${machineId}/`).then(
+            response => {
+                window.location.reload()
+            }
+        )
+    }
+    const isAvailableWashingMachine = washingMachine.available
     return (
         <div className='card-wrapper'>
-            <div className={isAvailable ? 'available-style header' : 'not-available-style header'}>
+            <div className={isAvailableWashingMachine ? 'available-style header' : 'not-available-style header'}>
                 <img src={headerImage}/>
             </div>
 
             <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">program</InputLabel>
+                <InputLabel id="demo-simple-select-label">Program</InputLabel>
                 <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -44,12 +64,16 @@ export const WashingMachineCard: React.FC<WashingMachineCardProps> = ({washingPr
                 <p>To: {washingMachine.toDate}</p>
             </div>
             <div>
-                {isAvailable ?
-                    <Button variant="contained" color="success">
+                {isAvailableWashingMachine ?
+                    <Button variant="contained" color="success" onClick={() => {
+                        onBookClick(washingMachine.id, selectedProgram)
+                    }}>
                         Book now
                     </Button>
                     :
-                    <Button variant="outlined" color="error">
+                    <Button variant="outlined" color="error" onClick={() => {
+                        onCancelClick(washingMachine.id)
+                    }}>
                         Cancel
                     </Button>}
             </div>

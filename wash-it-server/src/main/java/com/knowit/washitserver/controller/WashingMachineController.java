@@ -19,6 +19,11 @@ public class WashingMachineController {
         wms.saveWashingMachine( wm );
     }
 
+    @PostMapping("/update/{id}/")
+    private void saveWashingMachine(@PathVariable int id) {
+        wms.updateWashingMachineStatusById( id );
+    }
+
     @GetMapping("/")
     private List<WashingMachine> getAllMachines() {
         return wms.getAllWashingMachines();

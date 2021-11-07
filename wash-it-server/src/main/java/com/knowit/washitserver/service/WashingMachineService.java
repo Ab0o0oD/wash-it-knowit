@@ -23,9 +23,10 @@ public class WashingMachineService {
 
     public void updateWashingMachineStatusById(int id) {
         WashingMachine washingMachine = washingMachineRepository.findById( id ).orElseThrow();
-        washingMachine.setAvailable( false );
+        washingMachine.setAvailable( !washingMachine.available );
         washingMachineRepository.save( washingMachine );
     }
+
 
     public List<WashingMachine> getAllWashingMachines() {
         List<WashingMachine> washingMachines = new ArrayList<>();
