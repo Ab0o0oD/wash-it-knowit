@@ -13,8 +13,15 @@ export type WashingMachineProgram = {
 }
 
 export type User = {
-    id: number
+    id?: number
     firstName: string
     lastName: string
     mobileNumber: string
+}
+
+export type Reservation = {
+    id: number,
+    userId: number,
+    machineId: number,
+    programId: number
 }

@@ -1,4 +1,4 @@
-.container {
+.login-container {
     display: flex;
     flex-direction: column;
     position: absolute;
@@ -18,6 +18,20 @@
 
 }
 
-.text-field{
+.text-field {
     margin: 10px !important;
+}
+
+.box-signup-wrapper {
+    max-width: 480px;
+    margin: auto;
+}
+
+.form-signup-wrapper {
+    display: flex;
+    flex-direction: column;
+
+    background: white;
+    padding: 50px;
+
 }

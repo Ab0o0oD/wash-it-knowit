@@ -22,6 +22,10 @@ public class ReservationService {
     @Autowired
     private WashingMachineService washingMachineService;
 
+    public List<Reservation> fineAllreservationsForOneUser(int userId) {
+        return reservationRepository.fineAllreservationsByUserId( userId );
+    }
+
     public List<Reservation> getAllReservations() {
         ArrayList<Reservation> reservations = new ArrayList<>();
         reservationRepository.findAll().forEach( reservations::add );
