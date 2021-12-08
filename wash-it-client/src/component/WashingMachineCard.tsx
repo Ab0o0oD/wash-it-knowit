@@ -1,5 +1,5 @@
 import React from "react";
-import './Washing-machine-card.css';
+import './washing-machine-card.css';
 import headerImage from '../assets/washing-machine.png'
 import {Button, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent} from "@mui/material";
 import {User, WashingMachine, WashingMachineProgram} from "../business-types";

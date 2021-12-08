@@ -23,3 +23,6 @@ WashIt vil utvide applikasjonen til å inkludere flere tjenester. Eksempelvis:
 -	Reservasjon av tørketromler
 
 Beskriv hvordan du ser for deg å utvide applikasjonen med funksjonaliteten beskrevet ovenfor.
+
+
+Swagger served at: http://localhost:8080/swagger-ui/#/
