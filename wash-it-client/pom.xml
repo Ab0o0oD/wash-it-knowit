@@ -44,7 +44,7 @@
                 </executions>
                 <configuration>
                     <!-- Latest LTS -->
-                    <nodeVersion>v14.16.1</nodeVersion>
+                    <nodeVersion>v17.8.0</nodeVersion>
                 </configuration>
             </plugin>
         </plugins>
